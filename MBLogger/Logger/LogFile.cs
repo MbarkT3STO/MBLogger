@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using MBLogger.Logger.Enums;
+using Newtonsoft.Json;
 
 namespace MBLogger.Logger
 {
     class LogFile:ILogBase
     {
-        private LogFileOptions _logFileOptions;
+
+
+        private readonly LogFileOptions _logFileOptions;
 
 
         public LogFile(LogFileOptions logFileOptions)
@@ -20,7 +25,14 @@ namespace MBLogger.Logger
 
         public void Information(string logMessage)
         {
-            throw new NotImplementedException();
+            var logOptions = new LogOptions()
+                             {
+                                 LogLevel        = LogLevel.Information,
+                                 DateTime        = DateTime.Now,
+                                 MessageTemplate = logMessage
+                             };
+            
+            ReformatInformationAndLog(logOptions);
         }
 
         public void Warning(string     logMessage)
@@ -34,14 +46,37 @@ namespace MBLogger.Logger
         }
 
 
-        private void ReformatInformationAndLog(string logText, LogType logType)
+        private void ReformatInformationAndLog(ILogOptions logOptions)
         {
-
+            switch (_logFileOptions.FileFormat)
+            {
+                case LogFileFormat.Text: LogToTextFile(logOptions);
+                    break;
+                case LogFileFormat.Json: LogToJsonFile(logOptions);
+                    break;
+            }
         }
 
-
-        private void LogToFile()
+        private void LogToTextFile(ILogOptions logOptions)
         {
+            string NewLogLine = $"{nameof(logOptions.LogLevel)} {logOptions.DateTime} {logOptions.MessageTemplate}";
+            File.WriteAllText("LOG.txt", NewLogLine);
+        }
+        private void LogToJsonFile(ILogOptions logOptions)
+        {
+            List<ILogOptions> logOptionsList = new List<ILogOptions>()
+                                               {
+                                                   new LogOptions
+                                                   {
+                                                       LogLevel        = (LogLevel) logOptions.LogLevel,
+                                                       DateTime        = logOptions.DateTime,
+                                                       MessageTemplate = logOptions.MessageTemplate
+                                                   }
+                                               };
+
+            var Json = JsonConvert.SerializeObject(logOptionsList.ToArray());
+
+            File.WriteAllText(_logFileOptions.Path, Json + Environment.NewLine);
 
         }
     }

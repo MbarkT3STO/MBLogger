@@ -8,7 +8,7 @@ namespace MBLogger.Logger
     public class Log:ILog
     {
         public string Label      { get; set; }
-        public LogType LogType      { get; set; }
+        public LogLevel LogLevel      { get; set; }
         public string LogMessage { get; set; }
     }
 }

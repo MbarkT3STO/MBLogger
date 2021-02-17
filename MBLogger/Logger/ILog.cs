@@ -5,7 +5,7 @@ namespace MBLogger.Logger
     public interface ILog
     {
         string         Label      { get; set; }
-        public LogType LogType    { get; set; }
+        public LogLevel LogLevel    { get; set; }
         string         LogMessage { get; set; }
 
     }
