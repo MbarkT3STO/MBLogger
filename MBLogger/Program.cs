@@ -1,8 +1,6 @@
 ﻿using System;
-using Microsoft.Extensions.Logging;
-using Serilog;
-using Serilog.Formatting.Json;
-using ILogger = Serilog.ILogger;
+using MBLogger.Logger.Enums;
+using static MBLogger.Logger.LogFileBuilder;
 
 namespace MBLogger
 {
@@ -11,10 +9,12 @@ namespace MBLogger
         
         static void Main(string[] args)
         {
-            
+            _ = BuildLogFile(null);
+            //var logger = new Logger.Logger(LogTarget.File, LogFileFormat.Json, "XXXLog");
 
-
+       
             Console.WriteLine("Hello World!");
+
             Console.ReadKey();
         }
         
