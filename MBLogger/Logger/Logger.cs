@@ -10,20 +10,11 @@ namespace MBLogger.Logger
     public class Logger:ILogBase
     {
 
-        private readonly ILogBase _logFile;
+        private ILogBase _logFile;
 
         public Logger(LogTarget logTarget, string logFilePath = null, LogFileFormat logFileFormat = LogFileFormat.None)
         {
-            switch (logTarget)
-            {
-                case LogTarget.File:
-                    _logFile = new LogFile(new LogFileOptions()
-                                           {
-                                               Path       = logFilePath,
-                                               FileFormat = logFileFormat
-                                           });
-                    break;
-            }
+            SetLogTarget(logTarget, logFilePath, logFileFormat);
         }
 
         /// <summary>
@@ -57,9 +48,24 @@ namespace MBLogger.Logger
 
         #region Private Methods
 
-        private void SetLogTarget()
+        /// <summary>
+        /// Set and configure the Log Target
+        /// </summary>
+        /// <param name="logTarget">The log target</param>
+        /// <param name="logFilePath">If the log target a file type set the path</param>
+        /// <param name="logFileFormat"></param>
+        private void SetLogTarget(LogTarget logTarget, string logFilePath = null, LogFileFormat logFileFormat = LogFileFormat.None)
         {
-
+            switch (logTarget)
+            {
+                case LogTarget.File:
+                    _logFile = new LogFile(new LogFileOptions()
+                                           {
+                                               Path       = logFilePath,
+                                               FileFormat = logFileFormat
+                                           });
+                    break;
+            }
         }
 
         #endregion
