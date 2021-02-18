@@ -59,8 +59,8 @@ namespace MBLogger.Logger
 
         private void LogToTextFile(ILogOptions logOptions)
         {
-            string NewLogLine = $"{nameof(logOptions.LogLevel)} {logOptions.DateTime} {logOptions.MessageTemplate}";
-            File.WriteAllText("LOG.txt", NewLogLine);
+            string NewLogLine = $"{logOptions.LogLevel} {logOptions.DateTime} {logOptions.MessageTemplate}";
+            File.AppendAllText(_logFileOptions.Path, NewLogLine + Environment.NewLine);
         }
         private void LogToJsonFile(ILogOptions logOptions)
         {
@@ -68,15 +68,15 @@ namespace MBLogger.Logger
                                                {
                                                    new LogOptions
                                                    {
-                                                       LogLevel        = (LogLevel) logOptions.LogLevel,
+                                                       LogLevel        = logOptions.LogLevel,
                                                        DateTime        = logOptions.DateTime,
                                                        MessageTemplate = logOptions.MessageTemplate
                                                    }
                                                };
 
-            var Json = JsonConvert.SerializeObject(logOptionsList.ToArray());
+            var logAsJson = JsonConvert.SerializeObject(logOptionsList, Formatting.Indented);
 
-            File.WriteAllText(_logFileOptions.Path, Json + Environment.NewLine);
+            File.AppendAllText(_logFileOptions.Path, logAsJson);
 
         }
     }

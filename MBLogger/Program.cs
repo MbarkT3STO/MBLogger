@@ -16,8 +16,8 @@ namespace MBLogger
         static void Main(string[] args)
         {
 
-            var lg = new Logger.Logger(LogTarget.File, "LOG.txt", LogFileFormat.Text);
-            lg.Information("xxx");
+            var lg = new Logger.Logger(LogTarget.File, "LOG.json", LogFileFormat.Json);
+            lg.Information("ooooooo");
 
             //List<Log> lg = new List<Log>()
             //               {

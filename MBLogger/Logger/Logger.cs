@@ -10,7 +10,7 @@ namespace MBLogger.Logger
     public class Logger:ILogBase
     {
 
-        private ILogBase _logFile;
+        private readonly ILogBase _logFile;
 
         public Logger(LogTarget logTarget, string logFilePath = null, LogFileFormat logFileFormat = LogFileFormat.None)
         {
@@ -34,13 +34,11 @@ namespace MBLogger.Logger
         public void Warning(string logMessage)
         {
             _logFile.Warning(logMessage);
-
         }
 
         public void Error(string logMessage)
         {
             _logFile.Error(logMessage);
-
         }
     }
 }
