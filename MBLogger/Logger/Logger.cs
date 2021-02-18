@@ -7,6 +7,9 @@ using MBLogger.Logger.Enums;
 
 namespace MBLogger.Logger
 {
+    /// <summary>
+    /// The logging middleware
+    /// </summary>
     public class Logger:ILogBase
     {
 
@@ -20,28 +23,28 @@ namespace MBLogger.Logger
         /// <summary>
         /// Write a new <b>Information</b> log
         /// </summary>
-        /// <param name="logMessage">Content to be written</param>
-        public void Information(string logMessage)
+        /// <param name="messageTemplate">Content to be written</param>
+        public void Information(string messageTemplate)
         {
-            _logFile.Information(logMessage);
+            _logFile.Information(messageTemplate);
         }
 
         /// <summary>
         /// Write a new <b>Warning</b> log
         /// </summary>
-        /// <param name="logMessage">Content to be written</param>
-        public void Warning(string logMessage)
+        /// <param name="messageTemplate">Content to be written</param>
+        public void Warning(string messageTemplate)
         {
-            _logFile.Warning(logMessage);
+            _logFile.Warning(messageTemplate);
         }
 
         /// <summary>
         /// Write a new <b>Error</b> log
         /// </summary>
-        /// <param name="logMessage">Content to be written</param>
-        public void Error(string logMessage)
+        /// <param name="messageTemplate">Content to be written</param>
+        public void Error(string messageTemplate)
         {
-            _logFile.Error(logMessage);
+            _logFile.Error(messageTemplate);
         }
 
 
@@ -52,8 +55,8 @@ namespace MBLogger.Logger
         /// Set and configure the Log Target
         /// </summary>
         /// <param name="logTarget">The log target</param>
-        /// <param name="logFilePath">If the log target a file type set the path</param>
-        /// <param name="logFileFormat"></param>
+        /// <param name="logFilePath">If the log target a file type, set the path</param>
+        /// <param name="logFileFormat">The targeted file format</param>
         private void SetLogTarget(LogTarget logTarget, string logFilePath = null, LogFileFormat logFileFormat = LogFileFormat.None)
         {
             switch (logTarget)

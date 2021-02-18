@@ -6,8 +6,8 @@ namespace MBLogger.Logger
 {
     interface ILogBase
     {
-        void Information(string logMessage);
-        void Warning(string     logMessage);
-        void Error(string       logMessage);
+        void Information(string messageTemplate);
+        void Warning(string     messageTemplate);
+        void Error(string       messageTemplate);
     }
 }

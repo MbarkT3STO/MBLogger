@@ -17,7 +17,10 @@ namespace MBLogger
         {
 
             var lg = new Logger.Logger(LogTarget.File, "LOG.json", LogFileFormat.Json);
-            lg.Information("ooooooo");
+            lg.Information("This is Info");
+            lg.Warning("This is warning");
+            lg.Error("This is Error");
+
 
 
 
