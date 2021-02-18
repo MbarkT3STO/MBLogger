@@ -19,13 +19,7 @@ namespace MBLogger
             var lg = new Logger.Logger(LogTarget.File, "LOG.json", LogFileFormat.Json);
             lg.Information("ooooooo");
 
-            //List<Log> lg = new List<Log>()
-            //               {
-            //                   new Log() {Label = "xxx", LogLevel = LogLevel.Error, LogMessage = "messagexxxxx"}
-            //               };
 
-            //var json = JsonConvert.SerializeObject(lg.ToArray());
-            //File.WriteAllText("xxxx.json", json);
 
        
             Console.WriteLine("Hello World!");

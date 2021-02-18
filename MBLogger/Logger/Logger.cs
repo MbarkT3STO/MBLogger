@@ -26,19 +26,42 @@ namespace MBLogger.Logger
             }
         }
 
+        /// <summary>
+        /// Write a new <b>Information</b> log
+        /// </summary>
+        /// <param name="logMessage">Content to be written</param>
         public void Information(string logMessage)
         {
             _logFile.Information(logMessage);
         }
 
+        /// <summary>
+        /// Write a new <b>Warning</b> log
+        /// </summary>
+        /// <param name="logMessage">Content to be written</param>
         public void Warning(string logMessage)
         {
             _logFile.Warning(logMessage);
         }
 
+        /// <summary>
+        /// Write a new <b>Error</b> log
+        /// </summary>
+        /// <param name="logMessage">Content to be written</param>
         public void Error(string logMessage)
         {
             _logFile.Error(logMessage);
         }
+
+
+
+        #region Private Methods
+
+        private void SetLogTarget()
+        {
+
+        }
+
+        #endregion
     }
 }
