@@ -26,7 +26,7 @@ namespace MBLogger
             var lg = new Logger.Logger(LogTarget.Debug);
 
             // Do logging
-            await lg.InformationAsync("This is Info");
+            await lg.InformationAsync("This is Information");
             await lg.WarningAsync("This is warning");
             await lg.ErrorAsync("This is Error");
 
