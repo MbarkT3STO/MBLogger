@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MBLogger.Logger.Enums;
+using MBLogger.Enums;
+using MBLogger.Log;
+using MBLogger.Logger;
 
-namespace MBLogger.Logger.Builder
+namespace MBLogger.Builders
 {
     static class LogBuilder
     {

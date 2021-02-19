@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json.Serialization;
+using MBLogger.Enums;
 using MBLogger.Logger;
-using MBLogger.Logger.Enums;
 using Newtonsoft.Json;
-using static MBLogger.Logger.LogFileBuilder;
+using static MBLogger.Log.LogFileBuilder;
 
 
 namespace MBLogger
@@ -13,16 +13,24 @@ namespace MBLogger
     class Program
     {
         
-        static void Main(string[] args)
+        static async System.Threading.Tasks.Task Main(string[] args)
         {
 
-            var lg = new Logger.Logger(LogTarget.File, "LOG.xml", LogFileFormat.Xml);
-            lg.Information("This is Info");
-            lg.Warning("This is warning");
-            lg.Error("This is Error");
+            // Create a logger targeting logging into file with XML format
+            //var lg = new Logger.Logger(LogTarget.File, "LOG.xml", LogFileFormat.Xml);
 
-       
-            Console.WriteLine("Hello World!");
+            // Create a logger targeting logging into console
+            //var lg = new Logger.Logger(LogTarget.Console);
+
+            // Create a logger targeting logging into Debug
+            var lg = new Logger.Logger(LogTarget.Debug);
+
+            // Do logging
+            await lg.InformationAsync("This is Info");
+            await lg.WarningAsync("This is warning");
+            await lg.ErrorAsync("This is Error");
+
+
 
             Console.ReadKey();
         }

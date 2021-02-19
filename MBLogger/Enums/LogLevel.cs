@@ -1,4 +1,4 @@
-﻿namespace MBLogger.Logger.Enums
+﻿namespace MBLogger.Enums
 {
     public enum LogLevel
     {

@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MBLogger.Factory;
-using MBLogger.Logger.Enums;
-
+using System.Diagnostics;
+using System.Threading.Tasks;
+using MBLogger.Enums;
+using MBLogger.Log;
 
 namespace MBLogger.Logger
 {
@@ -13,60 +12,161 @@ namespace MBLogger.Logger
     public class Logger:ILogBase
     {
 
-        private ILogBase _logFile;
+        private readonly ILoggerConfigurations _loggerConfigurations;
 
-        public Logger(LogTarget logTarget, string logFilePath = null, LogFileFormat logFileFormat = LogFileFormat.None)
+        private ILogBase _logFile;
+        private ILogBase _logConsole;
+        private ILogBase _logDebug;
+
+
+        #region Constructors
+
+        public Logger(LogTarget logTarget, string logFilePath, LogFileFormat logFileFormat)
         {
-            SetLogTarget(logTarget, logFilePath, logFileFormat);
+            _loggerConfigurations = new LoggerConfigurations
+                                    {
+                                        LogTarget     = logTarget,
+                                        LogFilePath   = logFilePath,
+                                        LogFileFormat = logFileFormat
+                                    };
+            ConfigureLogTarget();
         }
 
-        /// <summary>
-        /// Write a new <b>Information</b> log
-        /// </summary>
-        /// <param name="messageTemplate">Content to be written</param>
+
+        public Logger(LogTarget logTarget)
+        {
+            _loggerConfigurations = new LoggerConfigurations
+                                    {
+                                        LogTarget     = logTarget,
+                                        LogFilePath = null,
+                                        LogFileFormat = LogFileFormat.None
+                                    };
+            ConfigureLogTarget();
+        }
+
+        #endregion
+
+
+        /// <inheritdoc/>
         public void Information(string messageTemplate)
         {
-            _logFile.Information(messageTemplate);
+            LogInformation(messageTemplate);
+        } 
+
+        public Task InformationAsync(string messageTemplate)
+        {
+            return Task.Factory.StartNew(() =>
+                                         {
+                                             LogInformation(messageTemplate);
+                                         });
         }
 
-        /// <summary>
-        /// Write a new <b>Warning</b> log
-        /// </summary>
-        /// <param name="messageTemplate">Content to be written</param>
+
+        /// <inheritdoc/>
         public void Warning(string messageTemplate)
         {
-            _logFile.Warning(messageTemplate);
+            LogWarning(messageTemplate);
+        } 
+        public Task WarningAsync(string messageTemplate)
+        {
+            return Task.Factory.StartNew(() =>
+                                         {
+                                             LogWarning(messageTemplate);
+                                         });
         }
 
-        /// <summary>
-        /// Write a new <b>Error</b> log
-        /// </summary>
-        /// <param name="messageTemplate">Content to be written</param>
+
+        /// <inheritdoc/>
         public void Error(string messageTemplate)
         {
-            _logFile.Error(messageTemplate);
+            LogError(messageTemplate);
+        } 
+        public Task ErrorAsync(string messageTemplate)
+        {
+            return Task.Factory.StartNew(() =>
+                                         {
+                                             LogError(messageTemplate);
+                                         });
         }
+
+
+
+
+
 
 
 
         #region Private Methods
 
+
         /// <summary>
         /// Set and configure the Log Target
         /// </summary>
-        /// <param name="logTarget">The log target</param>
-        /// <param name="logFilePath">If the log target a file type, set the path</param>
-        /// <param name="logFileFormat">The targeted file format</param>
-        private void SetLogTarget(LogTarget logTarget, string logFilePath = null, LogFileFormat logFileFormat = LogFileFormat.None)
+        private void ConfigureLogTarget()
         {
-            switch (logTarget)
+            switch (_loggerConfigurations.LogTarget)
             {
                 case LogTarget.File:
-                    _logFile = new LogFile(new LogFileOptions()
+                    _logFile = new LogFile(new LogFileOptions
                                            {
-                                               Path       = logFilePath,
-                                               FileFormat = logFileFormat
+                                               Path       = _loggerConfigurations.LogFilePath,
+                                               FileFormat = _loggerConfigurations.LogFileFormat
                                            });
+                    break;
+                case LogTarget.Console:
+                    _logConsole = new LogConsole();
+                    break;  
+                case LogTarget.Debug:
+                    _logDebug = new LogDebug();
+                    break;
+            }
+        }
+
+
+        private void LogInformation(string messageTemplate)
+        {
+            switch (_loggerConfigurations.LogTarget)
+            {
+                case LogTarget.File:
+                    _logFile.Information(messageTemplate);
+                    break;
+                case LogTarget.Console:
+                    _logConsole.Information(messageTemplate);
+                    break;
+                case LogTarget.Debug:
+                    _logDebug.Information(messageTemplate);
+                    break;
+            }
+        }  
+        
+        private void LogWarning(string messageTemplate)
+        {
+            switch (_loggerConfigurations.LogTarget)
+            {
+                case LogTarget.File:
+                    _logFile.Warning(messageTemplate);
+                    break;
+                case LogTarget.Console:
+                    _logConsole.Warning(messageTemplate);
+                    break;  
+                case LogTarget.Debug:
+                    _logDebug.Warning(messageTemplate);
+                    break;
+            }
+        }
+
+        private void LogError(string messageTemplate)
+        {
+            switch (_loggerConfigurations.LogTarget)
+            {
+                case LogTarget.File:
+                    _logFile.Error(messageTemplate);
+                    break;
+                case LogTarget.Console:
+                    _logConsole.Error(messageTemplate);
+                    break;  
+                case LogTarget.Debug:
+                    _logDebug.Error(messageTemplate);
                     break;
             }
         }
