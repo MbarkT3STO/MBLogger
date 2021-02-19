@@ -16,13 +16,10 @@ namespace MBLogger
         static void Main(string[] args)
         {
 
-            var lg = new Logger.Logger(LogTarget.File, "LOG.json", LogFileFormat.Json);
+            var lg = new Logger.Logger(LogTarget.File, "LOG.xml", LogFileFormat.Xml);
             lg.Information("This is Info");
             lg.Warning("This is warning");
             lg.Error("This is Error");
-
-
-
 
        
             Console.WriteLine("Hello World!");
