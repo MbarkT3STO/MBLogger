@@ -3,10 +3,33 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+    <ApplicationIcon>12715467_1048221511901957_8409655708148977738_n.ico</ApplicationIcon>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon>12715467_1048221511901957_8409655708148977738_n.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/MbarkT3STO/MBLogger</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MbarkT3STO/MBLogger</RepositoryUrl>
+    <PackageTags>Logger,Free,Net5,dotNet5,netCore,dotNetCore,Logging,Opern-Source</PackageTags>
+    <Description>Free simple and open-source logger project (targeted .Net 5)</Description>
+    <PackageReleaseNotes>Free simple and open-source logger project (targeted .Net 5)</PackageReleaseNotes>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Copyright>MB-WAR</Copyright>
+    <Authors>MBARK T3STO</Authors>
+    <Company />
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Downloads\12715467_1048221511901957_8409655708148977738_n.ico">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="F:\Logo\12715467_1048221511901957_8409655708148977738_n.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
