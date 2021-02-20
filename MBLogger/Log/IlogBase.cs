@@ -1,6 +1,8 @@
-﻿namespace MBLogger.Log
+﻿using MBLogger.Log.Abstract_Operations;
+
+namespace MBLogger.Log
 {
-    interface ILogBase
+    interface ILogBase:ILogOps
     { 
         /// <summary>
         /// Log a new <b>Information</b>
@@ -17,5 +19,15 @@
         /// </summary>
         /// <param name="messageTemplate"></param>
         void Error(string       messageTemplate);
+        /// <summary>
+        /// Log a new <b>Verbose</b>
+        /// </summary>
+        /// <param name="messageTemplate"></param>
+        void Verbose(string       messageTemplate);
+        /// <summary>
+        /// Log a new danger <b>fatal</b> error
+        /// </summary>
+        /// <param name="messageTemplate"></param>
+        void Fatal(string       messageTemplate);
     }
 }
