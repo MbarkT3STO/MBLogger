@@ -15,6 +15,9 @@
     <Copyright>MB-WAR</Copyright>
     <Authors>MBARK T3STO</Authors>
     <Company />
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

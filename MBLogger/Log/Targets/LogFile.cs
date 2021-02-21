@@ -13,7 +13,7 @@ namespace MBLogger.Log.Targets
     /// <summary>
     /// To log into a file
     /// </summary>
-    class LogFile:LogMiddleOps,ILogBase
+    internal class LogFile:LogMiddleOps,ILogBase
     {
 
 
@@ -23,7 +23,7 @@ namespace MBLogger.Log.Targets
         public LogFile(LogFileOptions logFileOptions)
         {
             _logFileOptions = logFileOptions;
-            LogFileBuilder.BuildLog(logFileOptions);
+            LogFileBuilder.BuildOne(logFileOptions);
         }
 
 
@@ -61,7 +61,7 @@ namespace MBLogger.Log.Targets
         public void Verbose(string messageTemplate)
         {
             //Write the log
-            LogError(messageTemplate);
+            LogVerbose(messageTemplate);
         }
 
 
@@ -69,7 +69,7 @@ namespace MBLogger.Log.Targets
         public void Fatal(string messageTemplate)
         {
             //Write the log
-            LogError(messageTemplate);
+            LogFatal(messageTemplate);
         }
 
 
@@ -90,7 +90,7 @@ namespace MBLogger.Log.Targets
         protected override void LogInformation(string messageTemplate)
         {
             //Build the new log object
-            var logOptions = LogBuilder.BuildOne(LogLevel.Information, DateTime.Now, messageTemplate);
+            var logOptions = BuildLog(LogLevel.Information, DateTime.Now, messageTemplate);
 
             //Write the log in the targeted format
             WriteLog(logOptions);
@@ -102,7 +102,7 @@ namespace MBLogger.Log.Targets
         protected override void LogWarning(string messageTemplate)
         {
             //Build the new log object
-            var logOptions = LogBuilder.BuildOne(LogLevel.Warning, DateTime.Now, messageTemplate);
+            var logOptions = BuildLog(LogLevel.Warning, DateTime.Now, messageTemplate);
 
             //Write the log in the targeted format
             WriteLog(logOptions);
@@ -114,7 +114,7 @@ namespace MBLogger.Log.Targets
         protected override void LogError(string messageTemplate)
         {
             //Build the new log object
-            var logOptions = LogBuilder.BuildOne(LogLevel.Error, DateTime.Now, messageTemplate);
+            var logOptions = BuildLog(LogLevel.Error, DateTime.Now, messageTemplate);
 
             //Write the log in the targeted format
             WriteLog(logOptions);
@@ -126,7 +126,7 @@ namespace MBLogger.Log.Targets
         protected override void LogVerbose(string messageTemplate)
         {
             //Build the new log object
-            var logOptions = LogBuilder.BuildOne(LogLevel.Verbose, DateTime.Now, messageTemplate);
+            var logOptions = BuildLog(LogLevel.Verbose, DateTime.Now, messageTemplate);
 
             //Write the log in the targeted format
             WriteLog(logOptions);
@@ -138,13 +138,12 @@ namespace MBLogger.Log.Targets
         protected override void LogFatal(string messageTemplate)
         {
             //Build the new log object
-            var logOptions = LogBuilder.BuildOne(LogLevel.Fatal, DateTime.Now, messageTemplate);
+            var logOptions = BuildLog(LogLevel.Fatal, DateTime.Now, messageTemplate);
 
             //Write the log in the targeted format
             WriteLog(logOptions);
 
         }
-
 
 
         /// <inheritdoc />
@@ -172,7 +171,7 @@ namespace MBLogger.Log.Targets
             File.Delete(_logFileOptions.Path);
 
             // Build new one
-            LogFileBuilder.BuildLog(_logFileOptions);
+            LogFileBuilder.BuildOne(_logFileOptions);
         }
 
         #endregion
@@ -190,7 +189,7 @@ namespace MBLogger.Log.Targets
         {
 
             string newLogLine =
-                $"{logOptions.LogLevel} {logOptions.DateTime} {logOptions.MessageTemplate}";
+                $"[{logOptions.LogLevel}] [{logOptions.DateTime}] [{logOptions.MessageTemplate}]";
 
             File.AppendAllText(_logFileOptions.Path,
                                newLogLine + Environment.NewLine);

@@ -24,7 +24,7 @@ namespace MBLogger.Logger
 
         #region Constructors
 
-        public Logger(LogTarget logTarget, string logFilePath, LogFileFormat logFileFormat)
+        public Logger(LogTarget logTarget, string logFilePath, LogFileFormat? logFileFormat)
         {
             _loggerConfigurations = new LoggerConfigurations
                                     {
@@ -42,7 +42,7 @@ namespace MBLogger.Logger
                                     {
                                         LogTarget     = logTarget,
                                         LogFilePath = null,
-                                        LogFileFormat = LogFileFormat.None
+                                        LogFileFormat = null
                                     };
             ConfigureLogTarget();
         }
@@ -124,20 +124,25 @@ namespace MBLogger.Logger
 
         #region Middle Methods
 
-
         /// <summary>
         /// Set and configure the Log Target
         /// </summary>
+        /// <exception cref="ArgumentNullException">Will thrown when log targeted a file and received <b><see cref="LogFileFormat"/></b> is null</exception>
         private void ConfigureLogTarget()
         {
             switch (_loggerConfigurations.LogTarget)
             {
                 case LogTarget.File:
-                    _logFile = new LogFile(new LogFileOptions
-                                           {
-                                               Path       = _loggerConfigurations.LogFilePath,
-                                               FileFormat = _loggerConfigurations.LogFileFormat
-                                           });
+                    if (_loggerConfigurations.LogFileFormat == null)
+                        throw new
+                            ArgumentNullException($"{nameof(_loggerConfigurations.LogFileFormat)} must be not null when log targeted a file");
+                    else
+                        _logFile = new LogFile(new LogFileOptions
+                                               {
+                                                   Path       = _loggerConfigurations.LogFilePath,
+                                                   FileFormat = (LogFileFormat) _loggerConfigurations.LogFileFormat
+                                               });
+
                     break;
                 case LogTarget.Console:
                     _logConsole = new LogConsole();

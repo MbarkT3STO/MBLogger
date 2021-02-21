@@ -6,7 +6,7 @@ using MBLogger.Log.Options;
 
 namespace MBLogger.Log.Builders
 {
-    static class LogFileBuilder
+    internal static class LogFileBuilder
     {
 
         /// <summary>
@@ -14,7 +14,7 @@ namespace MBLogger.Log.Builders
         /// </summary>
         /// <param name="logFileOptions">The file options</param>
         /// <returns></returns>
-        public static void BuildLog(LogFileOptions logFileOptions)
+        public static void BuildOne(LogFileOptions logFileOptions)
         {
 
                                              if (!File.Exists(logFileOptions.Path))
@@ -25,11 +25,13 @@ namespace MBLogger.Log.Builders
                                                           BuildText(logFileOptions.Path);
                                                          break; 
                                                      case LogFileFormat.Json:
-                                                          BuildText(logFileOptions.Path);
+                                                          BuildJson(logFileOptions.Path);
                                                          break;
                                                      case LogFileFormat.Xml:
                                                           BuildXml(logFileOptions.Path);
                                                          break;
+                                                     default:
+                                                         throw new ArgumentOutOfRangeException();
                                                  }
                                              }
                                         

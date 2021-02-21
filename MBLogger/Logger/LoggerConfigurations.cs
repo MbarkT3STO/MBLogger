@@ -17,6 +17,6 @@ namespace MBLogger.Logger
         public string        LogFilePath   { get; set; }
 
         /// <inheritdoc />
-        public LogFileFormat LogFileFormat { get; set; }
+        public LogFileFormat ? LogFileFormat { get; set; }
     }
 }

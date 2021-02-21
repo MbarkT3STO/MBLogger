@@ -23,6 +23,6 @@ namespace MBLogger.Logger
         /// <summary>
         /// Determine the file format if the log target loggin in file
         /// </summary>
-       LogFileFormat LogFileFormat { get; set; }
+       LogFileFormat ? LogFileFormat { get; set; }
     }
 }

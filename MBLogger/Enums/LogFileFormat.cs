@@ -4,7 +4,6 @@
     {
         Text,
         Json,
-        Xml,
-        None
+        Xml
     }
 }

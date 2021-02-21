@@ -4,18 +4,18 @@ using MBLogger.Log.Options;
 
 namespace MBLogger.Log.Builders
 {
-    static class LogBuilder
+    public static class LogBuilder
     {
         /// <summary>
         /// Build a new <b><see cref="ILogOptions"/></b> object
         /// </summary>
         /// <param name="logLevel">The log level</param>
         /// <param name="logDateTime">The log date and time</param>
-        /// <param name="MessageTemplate">The log text content</param>
+        /// <param name="messageTemplate">The log text content</param>
         /// <returns></returns>
-        public static ILogOptions BuildOne(LogLevel logLevel, DateTime logDateTime , string MessageTemplate)
+        public static ILogOptions BuildOne(LogLevel logLevel, DateTime logDateTime , string messageTemplate)
         {
-            return new LogOptions() {LogLevel = logLevel, DateTime = DateTime.Now, MessageTemplate = MessageTemplate};
+            return new LogOptions() {LogLevel = logLevel, DateTime = logDateTime, MessageTemplate = messageTemplate};
         }
     }
 }
